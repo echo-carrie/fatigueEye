@@ -285,9 +285,6 @@ def generate():
 def video_feed():
     return Response(generate(), mimetype = "multipart/x-mixed-replace; boundary=frame")
 
-
-   
-
 @app.route('/graph')
 def graph():
     arr = []
@@ -298,8 +295,7 @@ def graph():
         name = [line.strip() for line in f if line.strip()] 
     for num in name:
         arr.append(int(float(num)))
-        
-        
+
     y = np.array(arr)
     y = y/1000
     x = range(len(arr))
