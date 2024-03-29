@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="video">
+    <img src="{{ url_for('video_feed') }}" onload="imageloaded();"/>
+    <h1 id='feed' class="centered">Loading Live Feed</h1>
+    <div id='fancy-spinner' class="fancy-spinner precentered" >
+        <div id='ring' class="ring"></div>
+        <div id='dot'  class="dot"></div>
+    </div>
+</div>
+<h1>帧值</h1>
+    <ul id="frame-values"></ul>
+ <script>
+        const socket = io('/values');
+
+        // 处理帧值更新事件
+        socket.on('frame_values', function(frameValues) {
+            const frameValuesList = document.getElementById('frame-values');
+
+            // 清空列表
+            frameValuesList.innerHTML = '';
+
+            // 遍历帧值对象的属性并将其添加到列表中
+            for (const key in frameValues) {
+                if (frameValues.hasOwnProperty(key)) {
+                    const value = frameValues[key];
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${key}: ${value}`;
+                    frameValuesList.appendChild(listItem);
+                }
+            }
+        });
+    </script>
+{% endblock content %}
