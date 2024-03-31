@@ -42,7 +42,8 @@ frame_height = 576
 Roll = 0
 Rolleye = 0
 Rollmouth = 0
-
+Blinkeye=0
+Yawn=0
 # 循环播放视频流中的帧
 # 2D 图像点。如果更改图像，则需要更改矢量
 image_points = np.array([
@@ -139,6 +140,7 @@ while True:
         if ear < EYE_AR_THRESH:
             COUNTER += 1
             Rolleye += 1
+            Blinkeye+=1
             # 如果闭眼的次数足够多
             # 则显示警告
             if COUNTER >= EYE_AR_CONSEC_FRAMES:
@@ -164,6 +166,7 @@ while True:
         # 如果嘴巴张开，则绘制文字
         if mar > MOUTH_AR_THRESH:
             Rollmouth += 1
+            Yawn+=1
             cv2.putText(frame, "Yawning!", (800, 20),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 

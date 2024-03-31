@@ -93,6 +93,8 @@ def generate():
     Roll = 0
     Rolleye = 0
     Rollmouth = 0
+    Blink=0
+    Yawn=0
     detectedValues = {
         'head_tilt_degree': 0,
         'perclos': 0,
@@ -192,6 +194,7 @@ def generate():
             if ear < EYE_AR_THRESH:
                 COUNTER += 1
                 Rolleye += 1
+                Blink+=1
                 # 如果闭眼的次数足够多
                 # 则显示警告
                 if COUNTER >= EYE_AR_CONSEC_FRAMES:
@@ -217,6 +220,7 @@ def generate():
             # 如果嘴巴张开，则绘制文字
             if mar > MOUTH_AR_THRESH:
                 Rollmouth += 1
+                Yawn+=1
                 cv2.putText(frame, "Yawning!", (800, 20),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
@@ -318,6 +322,29 @@ def generate():
                 cv2.putText(frame, 'Head Tilt Degree: ' + str(head_tilt_degree[0]), (170, 20),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
+            with open("files/ear.txt", "a") as file:
+                file.write(str(ear))
+                file.write('\n')
+
+            with open("files/mar.txt", "a") as file:
+                file.write(str(mar))
+                file.write('\n')
+
+            with open("files/perclos.txt", "a") as file:
+                file.write(str(perclos))
+                file.write('\n')
+
+            with open("files/head.txt", "a") as file:
+                file.write(str(head_tilt_degree[0]))
+                file.write('\n')
+
+            with open("files/blink.txt", "a") as file:
+                file.write(str(Blink))
+                file.write('\n')
+
+            with open("files/yawn.txt", "a") as file:
+                file.write(str(Yawn))
+                file.write('\n')
             # extract the mouth coordinates, then use the
             # coordinates to compute the mouth aspect ratio
         # show the frameq
@@ -345,7 +372,79 @@ def generate():
 @app.route('/video_feed')
 def video_feed():
     return Response(generate(), mimetype="multipart/x-mixed-replace; boundary=frame")
+@app.route('/report')
+def report():
+    ear_arr = []
+    with open("./files/ear.txt", "r") as f:
+        name = [line.strip() for line in f if line.strip()]
+        for num in name:
+            ear_arr.append(round(float(num), 3) * 1000)
+
+    with open("./files/yawn.txt", "r") as f:
+        yawns = [line.strip() for line in f if line.strip()]
+        if yawns:
+            yawn = yawns[-1]
+        else:
+            yawn = 0
+
+    with open("./files/blink.txt", "r") as f:
+        blinks = [line.strip() for line in f if line.strip()]
+        if blinks:
+            blink = blinks[-1]
+        else:
+            blink = 0
+
+
+    avg = np.mean(ear_arr)
+    avg = round(avg, 2)
+    check = math.isnan(avg)
+    time = datetime.now().strftime("%I:%M %p")
+    current_date = date.today().strftime("%B %d, %Y")
+
+    return render_template('report.html', title='Results', avg=avg, yawn=yawn, blink=blink, check=check, time=time, date=current_date)
+
+@app.route('/graph/<filename>/<xlabel>/<ylabel>/<title>')
+def graph(filename, xlabel, ylabel, title):
+    with lock:
+        arr = []
+        plt.rcParams['font.sans-serif'] = ['SimHei']
+        plt.rcParams['axes.unicode_minus'] = False
+        plt.style.use('dark_background')
+        plt.switch_backend('Agg')  # 切换到非交互模式
+        filename1='./files/'+filename+'.txt'
+        print(filename1)
+        with open(filename1, "r") as f:
+            data = [line.strip() for line in f if line.strip()]
+
+        for value in data:
+            arr.append(float(value))
+
+        y = np.array(arr)
+        x = np.arange(len(arr))
+
+        plt.plot(x, y, color='#00b7ff', linewidth=1)
+
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.title(title)
+
+        # Save the figure to a BytesIO object
+        output = io.BytesIO()
+        FigureCanvasAgg(plt.gcf()).print_png(output)
+
+        # Return the image data
+    return Response(output.getvalue(), mimetype='image/png')
+
+def resetFile():
+    file_list = ["blink.txt", "ear.txt", "head.txt", "mar.txt", "perclos.txt", "yawn.txt"]
+
+    for file_name in file_list:
+        file_prefix='./files/'
+        file_road=file_prefix+file_name
+        with open(file_road, "w") as file:
+            file.truncate(0)
 
 if __name__ == '__main__':
+    resetFile()
     app.run(host='127.0.0.1', port=5000, debug=True, threaded=True, use_reloader=False)
 
