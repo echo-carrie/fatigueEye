@@ -2,27 +2,250 @@
 
 {% block content %}
 
-    <div class="about">
-    <div class="about_left">
-        <div class="txt">
-            Our team presents Fatigue-detector, mainly developed keeping in mind the present trend of online classes.
-        Due to this pandemic all of us are spending a lot of time on our Computers,phones to attend our classes. Apart from this we
-        also spend a lot of time watching tv shows, movies etc.. <br />
-
-        In such a situation it is natural that students would get stressed and tired.Our project is aimed at solving this issue.
-        Our app would help students stay awake during online classes by monitoring their eye movements.
-        It would trigger an alarm incase the student accidently dozes off during online classes.
-        It would also remind us to have sufficient intake of water from time to time.
-        Moreover there is an additional feature which would give students daily tips on how to maintain their
-        health and stay active during online classes.
+ <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&family=Fjalla+One&family=Source+Serif+Pro:wght@300&display=swap" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/about.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="{{url_for('static', filename='Fire_logo_title.jpg')}}" type="image/jpg" sizes="128x128">
+    <title>Fire Eye - About</title>
+</head>
+<div >
+    <div class="Nav-Bar">
+        <ul class="Navigation-Bar">
+            <a class="title" href="{{url_for('index')}}"><img class="logo" src="{{url_for('static', filename='/img/DecCar/icon.png')}}" width="90px" height="100px"></a>
+            <a class="topnav-left" href="{{url_for('index')}}">清醒派</a>
+        <div class="topnav-right">
+            <li class="Nav-Link"><a  href="{{url_for('index')}}"><i style="padding-right:10px;" class="fa fa-home"></i>首页</a></li>
+            <li class="Nav-Link"><a  href="{{url_for('about')}}"><i style="padding-right:10px;" class="fa fa-tree"></i>关于</a></li>
+            <li class="Nav-Link"><a  href="{{url_for('video',)}}"><i style="padding-right:10px;" class="fa fa-list-ul"></i>检测</a></li>
+            <li class="Nav-Link"><a  href="{{url_for('report', )}}"><i style="padding-right:10px;" class="fa fa-leaf"></i>报告</a></li>
+            <li class="Nav-Link"><a  href="{{url_for('index',)}}"><i style="padding-right:10px;" class="fa fa-phone"></i>联系方式</a></li>
         </div>
-    </div>
-    <div class="about_right scale-up-center">
-        <div class="content2 flex">
-            <img class="relax slide-fwd-center" src="../static/media/about.svg">
-        </div>
-
+        </ul>
         </div>
 </div>
+<section>
+<div class="Content">
+        <div class="image-overlay"style="background: url('https://img2.imgtp.com/2024/04/02/BnPwgxEN.jpg') no-repeat center; background-size: cover;">
+            <div class="image">
+            </div>
+        </div>
+        <div class="Content-text">
+        <h1>关于我们</h1>
+        <a href="{{url_for('index')}}">首页&nbsp&nbsp&nbsp&nbsp<i class="fa fa-angle-right"></i></a>
+        <p>&nbsp&nbsp&nbsp&nbsp关于我们</p>
+        </div>
+        </div>
+</section>
 
-{% endblock content %}
+<section>
+    <div class="Section-2">
+        <div class="AboutDetails reveal fade-left">
+            <h1>关于清醒派</h1>
+            <div class="AboutContent">
+            <p>
+                “清醒派"实时人工智能驾驶防疲劳辅助系统能感知驾驶员是否心不在焉甚至昏昏欲睡，为保障您的安全，在必要时激活保护屏障，采取告警、疲劳缓解、导航至停车点等功能。"清醒派"包括以下模块和技术：
+            </p>
+            <ul> <li>捕风捉影：融合面部多特征，智能感知疲劳</li>
+                <li>指点迷津：内嵌GPS模块，导航至最近停车点</li>
+                <li>察察为明：驾驶数据分析，优化行驶习惯</li>
+                <li>防患未然：实时语音报警，护航驾驶之途</li> </ul>
+            </div>
+        </div>
+
+        <div class="Aboutimg reveal fade-right">
+            <img src="/static/About_Image.jpeg" height="320px" width="530px">
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="Section-3">
+        <div class="GoalsDetail reveal fade-top">
+            <h1>我们的目标</h1>
+            <h2>WHAT FATIGUEYE IS DOING?</h2>
+            <img src="../static/img/DecCar/icon.png" height="100px" width="85px">
+            <p>
+            清醒派贯彻关爱他人的产品理念，致力于安全实时的防疲劳辅助，我们守护乘客乃至路上行人的安全，提供更加安全可靠的行车环境，时刻守护您和您所爱的一切
+            </p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="Section-4">
+        <div class="GoalPoints reveal fade-left">
+                    <h1>为您提供必要支持</h1>
+            <p>
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp我们都认为自己是出色的驾驶者，但即使是最出色的驾驶员也会犯错。"清醒派"实时人工智能驾驶防疲劳辅助系统提供多种疲劳缓解手段，以在您状态不佳时提供支持。
+"清醒派"关心您的安全，通过智能分析驾驶员的疲劳程度，及时报警并提供支持，无论您是否意识到自己的疲劳，"清醒派"都将始终在您身边，为您提供必要的支持。我们相信，共同努力，驾驶安全将得到更好的保障。
+            </p>
+        </div>
+
+        <div class="Goalsimg reveal fade-left">
+            <img src="static/img/aboutImg/fatigueDrive.png" height="280px" width="455px">
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="Section-5">
+        <div class="GoalPoints Point-2 reveal fade-right">
+            <h1>可靠数据来源</h1>
+            <p>
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp我们致力于基于研究来处理安全问题，基于数据来进行决策。
+                我们基于迄今为止最大的真实驾驶数据集YAW-DD数据集进行疲劳分析。
+                数据集覆盖多种实验人群、驾驶状态驾驶环境、观察角度，能为精准面部疲劳算法分析提供有力支持。
+                实验人员为57名男性和50名女性志愿者，涵盖了不同年龄、种族和面部特征，
+                包括了多种驾驶状态如正常驾驶状态、说话、唱歌状态和哈欠状态，
+                配备了多个机位如仪表盘、前镜，
+                覆盖多从早晨到日落不同的光照情况，
+                真实的数据来源、丰富的数据使清醒派数据分析更加安全可靠。
+            </p>
+        </div>
+
+        <div class="Goalsimg img2 reveal fade-right">
+            <img src="static/img/aboutImg/dataset.png" height="280px" width="455px">
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="Section-6">
+        <div class="GoalPoints Point-3 reveal fade-left">
+            <h1 style="color:#fff ">创新准确的算法</h1>
+            <p>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp疲劳驾驶检测算法SubtleFatigue是一种创新的算法通过分析面部地标和整体表情增强了嗜睡检测功能。
+                该算法利用改进的Yolov5架构来提取眼部、嘴部以及整体面部特征，
+                从而全面了解驾驶员在操作过程中的状态。通过对面部特征的分析，
+                SubtleFatigue能够检测出细微的瞌睡迹象，并观察到面部表情的微妙变化，
+                以提供有价值的信息来评估驾驶员的警觉程度。
+                这种结合面部地标和整体表情的创新算法使得SubtleFatigue在疲劳驾驶检测领域具有更高的准确性和可靠性。
+            </p>
+        </div>
+
+        <div class="Goalsimg reveal fade-left">
+            <img src="static/img/aboutImg/model.png" height="280px" width="455px">
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="Section-61">
+        <div class="GoalPoints Point-2 reveal fade-right">
+            <h1>模拟环境安全测试</h1>
+            <p>
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp清醒派模拟安全测试实验采用了被试分组设计，根据被试是否参与了睡眠剥夺以及是否在困倦的时段进行实验分组。
+                实验使用欧卡2（Euro Truck Simulator 2）作为模拟驾驶游戏的刺激素材，并在游戏中模拟高速公路长途行驶场景。
+                同时，使用奥卡摄像头记录被试的行为，并进行连续180分钟的模拟驾驶操作。
+                每次实验持续约180分钟，包含18个trial，每个trial持续10分钟，其中有9分45秒的游戏时间。
+                模拟驾驶结束后，被试立即进行一个15秒的自我评估，以评估其疲劳驾驶的程度。
+                多次实验的结果表明，清醒派误报率低、准确度高、干扰性低，适合投入实际使用，并且实验过程中的干扰性较低。
+            </p>
+        </div>
+
+        <div class="Goalsimg img2 reveal fade-right">
+            <img src="static/img/aboutImg/test.png" height="280px" width="455px">
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="Section-7">
+        <div id="image-comparison-slider">
+            <img src="static/img/Comparison/mercedes-benz-1036355_1280.jpg" alt="before">
+            <div class="img-wrapper">
+              <img src="static/img/Comparison/accident-2719739_1280.jpg" alt="after">
+            </div>
+            <span class="label label-before">Before</span>
+            <span class="label label-after">After</span>
+            <div class="handle">
+              <div class="handle-line"></div>
+              <div class="handle-circle">
+                <i class="fa fa-angle-left"></i>
+                <i class="fa fa-angle-right"></i>
+              </div>
+              <div class="handle-line"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="Section-8">
+        <div class="FooterCap">
+            <div class="image1">
+            <img src="static/img/DecCar/icon.png" width="190px" height="210px">
+            <h1>生命第一，请谨慎疲劳价值！</h1>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% raw %}
+<script>
+const slider = document.querySelector("#image-comparison-slider");
+const sliderImgWrapper = document.querySelector("#image-comparison-slider .img-wrapper");
+const sliderHandle = document.querySelector("#image-comparison-slider .handle");
+
+slider.addEventListener("mousemove", sliderMouseMove);
+slider.addEventListener("touchmove", sliderMouseMove);
+
+function sliderMouseMove(event) {
+  if (isSliderLocked) return;
+
+  const sliderLeftX = slider.offsetLeft;
+  const sliderWidth = slider.clientWidth;
+  const sliderHandleWidth = sliderHandle.clientWidth;
+
+  let mouseX = (event.clientX || event.touches[0].clientX) - sliderLeftX;
+  if (mouseX < 0) mouseX = 0;
+  else if (mouseX > sliderWidth) mouseX = sliderWidth;
+
+  sliderImgWrapper.style.width = `${((1 - mouseX/sliderWidth) * 100).toFixed(4)}%`;
+  sliderHandle.style.left = `calc(${((mouseX/sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth/2}px)`;
+}
+
+let isSliderLocked = true;
+
+slider.addEventListener("mousedown", sliderMouseDown);
+slider.addEventListener("touchstart", sliderMouseDown);
+slider.addEventListener("mouseup", sliderMouseUp);
+slider.addEventListener("touchend", sliderMouseUp);
+slider.addEventListener("mouseleave", sliderMouseLeave);
+
+function sliderMouseDown(event) {
+  if (isSliderLocked) isSliderLocked = false;
+  sliderMouseMove(event);
+}
+
+function sliderMouseUp() {
+  if (!isSliderLocked) isSliderLocked = true;
+}
+
+function sliderMouseLeave() {
+  if (isSliderLocked) isSliderLocked = true;
+}
+
+function reveal() {
+  var reveals = document.querySelectorAll(".reveal");
+
+  for (var i = 0; i < reveals.length; i++) {
+    var windowHeight = window.innerHeight;
+    var elementTop = reveals[i].getBoundingClientRect().top;
+    var elementVisible = 50;
+
+    if (elementTop < windowHeight - elementVisible) {
+      reveals[i].classList.add("active");
+    }
+  }
+}
+
+window.addEventListener("scroll", reveal);
+</script>
+{% endraw %}
+
+  {% endblock content %}
+

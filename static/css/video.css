@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&family=Fjalla+One&family=Source+Serif+Pro:wght@300&display=swap');
+html {
+    scroll-behavior: smooth;
+}
+
+title{
+    font-family: 'Elsie',cursive;
+}
+
+body{
+    margin: 0px auto 0px auto;
+    max-width: 1150px;
+    min-width: 1140px;
+}
+
+.Section-1{
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0%;
+}
+
+/*Navigation Bar*/
+.Nav-Bar{
+    background: #122861;
+}
+
+.logo{
+    position: absolute;
+    margin-left: 5%;
+}
+
+.topnav-right{
+    float:right;
+    margin-top: 2.5%;
+    margin-right: 2%;
+}
+
+.topnav-right{
+    float:right;
+    margin-top: 2.5%;
+    margin-right: 2%;
+}
+
+a.topnav-left {
+    position: absolute;
+    left: 25%;
+    top: 3%;
+    font-family: 'Elsie', cursive;
+    font-size: 30px;
+    text-decoration: none;
+    color:#fff;
+}
+
+.Navigation-Bar{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.Navigation-Bar li {
+    float: left;
+}
+
+.Navigation-Bar li a {
+    display: block;
+    font-family: 'Source Serif Pro', serif;
+    text-align: center;
+    color: #fff;
+    padding: 9px 16px;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.Navigation-Bar li:hover{
+    background-color:  rgb(112, 24, 4);
+    border-radius: 5px;
+}
+
+.Navigation-Bar li:hover a{
+    color: rgb(255, 251, 233);
+}
+
+.Content{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* video */
+.section-2
+{
+    display: flex;
+    background-image: url('https://img2.imgtp.com/2024/04/02/AdOQ8nUA.jpg'); /* 使用绝对路径 */
+
+}
+.video {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 文本按钮框容器样式 */
+.text-box {
+    width: 30%; /* 文本框占视频框宽度的30% */
+    padding: 20px;
+}
+
+    .image-container {
+        display: flex;
+        flex-direction: column; /* 将子元素纵向排列 */
+        align-items: flex-start; /* 左对齐 */
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 0px; /* 顶部间距 */
+        padding: 20px; /* 内边距 */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    }
+
+    .image-container img {
+        margin: 10px; /* 图像间距 */
+        max-width: 100px; /* 图像最大宽度 */
+        max-height: 100px; /* 图像最大高度 */
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* 图像阴影效果 */
+    }
+
+
+/* Section-3 */
+.Section-3.result {
+    text-align: center; /* 让h1水平居中 */
+
+}
+.result {
+    color: white; /* 设置字体颜色为白色 */
+}
+
+.Section-3 {
+    display: inline-block;
+    position: relative;
+    background-image: url('https://img2.imgtp.com/2024/04/02/AdOQ8nUA.jpg');
+    background-size: cover; /* 背景图片尺寸自适应 */
+    background-repeat: no-repeat; /* 不重复平铺背景图片 */
+    height: 200px;
+    width: 100%;
+    margin-top: 20px;
+    text-align: center; /* 居中内容 */
+}
+
+
+.Section-3 img {
+    position: absolute;
+    top: 50%; /* 图片顶部位于父元素中垂直方向的50%处 */
+    left: 50%; /* 图片左侧位于父元素中水平方向的50%处 */
+    transform: translate(-50%, -50%); /* 将图片自身的中心点定位到父元素的中心 */
+}
+
+.container {
+    width: 100%;
+    background-color: #ddd;
+}
+
+.skills {
+    text-align: right;
+    padding-right: 20px;
+    line-height: 40px;
+    color: white;
+}
+
+.html {
+    width: 90%;
+    background-image: -webkit-linear-gradient(180deg, #2f5aa2,#88cbeb);;
+}
+
+.guidelines {
+    position: absolute;
+    margin-top: 7.5%;
+    margin-left: 6%;
+}
+
+.guidelines li {
+    font-family: 'EB Garamond', serif;
+    font-size: 26px;
+    font-style: oblique;
+}

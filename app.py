@@ -1,9 +1,11 @@
 # imports
 import base64
 import json
+import queue
+from itertools import zip_longest
 
 import torch
-from flask import Response, Flask, render_template, url_for, session
+from flask import Response, Flask, render_template, url_for, session, jsonify
 from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
@@ -11,7 +13,7 @@ from threading import Thread
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 import matplotlib.pyplot as plt
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import numpy as np
 import threading
 import imutils
@@ -40,31 +42,55 @@ import numpy as np
 from EAR import eye_aspect_ratio
 from MAR import mouth_aspect_ratio
 from HeadPose import getHeadTiltAndCoords
+from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+from database import Fire_Alerts, Fire_Location, db
+
+# app = Flask(__name__)
 # app.config['SECRET_KEY'] = 'Mi6gttkkSJHof5-q8-HPBUyTsdRVVOLO'
 
 outputFrame = None
 lock = threading.Lock()
+update_graph = False
+update_queue = queue.Queue()
+videoStart=False
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+def create_app():
+    App = Flask(__name__, static_url_path='/static')
+    App.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Fire_Alerts.db'
+    App.config['SQLALCHEMY_BINDS'] = {
+        'fire_location': 'sqlite:///Fire_Location.db'
+    }
+    db.init_app(App)
 
+    with App.app_context():
+        db.create_all()
+        print(f"Fire Alerts Database path: {App.config['SQLALCHEMY_DATABASE_URI']}")
+        print(f"Fire Location Database path: {App.config['SQLALCHEMY_BINDS']['fire_location']}")
 
-@app.route('/about')
-def about():
-    return render_template('about.html', title='About')
+    return App
 
-@app.route('/video')
-def video():
-    return render_template('video.html', title='Video')
+app = create_app()
 
+def resetFile():
+    file_list = ["blink.txt", "ear.txt", "head.txt", "mar.txt", "perclos.txt", "yawn.txt"]
+
+    for file_name in file_list:
+        file_prefix='./files/'
+        file_road=file_prefix+file_name
+        with open(file_road, "w") as file:
+            file.truncate(0)
 def sound_alarm():
     playsound.playsound('./fatigue/sounds/alarm2.mp3')
-#
+
+def enqueue_update():
+    update_queue.put(True)
+    threading.Timer(0.3, enqueue_update).start()  # 每隔5秒放入一次更新请求
+
+# 生成视频帧，通过生成器函数，重点看最后一行
 def generate():
+    resetFile()
     # 初始化 dlib 的面部检测器（基于 HOG），然后创建
     # 面部地标预测器
     print("[INFO] loading facial landmark predictor...")
@@ -369,7 +395,105 @@ def generate():
 
         yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
 
-@app.route('/video_feed')
+# 生成可视化的图片，通过生成器函数
+def generateGraph(filename, xlabel, ylabel, title):
+    # 不断生成
+    while True:
+        try:
+            # 阻塞等待更新请求
+            update_graph = update_queue.get()
+            with lock:
+                arr = []
+                # filename = 'ear'
+                plt.rcParams['font.sans-serif'] = ['SimHei']
+                plt.rcParams['axes.unicode_minus'] = False
+                plt.style.use('dark_background')
+                plt.switch_backend('Agg')  # 切换到非交互模式
+                filename1 = './files/' + filename + '.txt'
+                print(filename1)
+                with open(filename1, "r") as f:
+                    data = [line.strip() for line in f if line.strip()]
+
+                for value in data:
+                    arr.append(float(value))
+
+                y = np.array(arr)
+                x = np.arange(len(arr))
+
+                plt.plot(x, y, color='#00b7ff', linewidth=1)
+
+                plt.xlabel(xlabel)
+                plt.ylabel(ylabel)
+                plt.title(title)
+
+                # 将数字保存到 BytesIO 对象中
+                output = io.BytesIO()
+                FigureCanvasAgg(plt.gcf()).print_png(output)
+
+                # 返回图像数据
+                output.seek(0)
+                plt.close('all')
+                yield (b'--frame\r\n' b'Content-Type: image/png\r\n\r\n' + output.read() + b'\r\n')
+        except GeneratorExit:
+            # 当生成器关闭时退出循环
+            break
+
+@app.route('/location')
+def location():
+    return render_template('location.html')
+
+
+
+@app.route('/data')
+def get_data():
+    # Calculate the date range for the last 10 days
+    today = datetime.now().date()
+    ten_days_ago = today - timedelta(days=9)
+
+    # Retrieve the data for the last 10 days from the database
+    fire_alerts = Fire_Alerts.query.filter(Fire_Alerts.date >= ten_days_ago).all()
+
+    # Calculate the count of fire alerts per day
+    data = []
+    for i in range(10):
+        date_i = today - timedelta(days=i)
+        count = sum(datetime.strptime(alert.date, '%Y-%m-%d').date() == date_i for alert in fire_alerts)
+        data.append({'date': date_i.strftime('%Y-%m-%d'), 'count': count})
+
+    return jsonify(data)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/neighbor')
+def neighbor():
+    return render_template('neighbor.html')
+
+@app.route('/delete_alert/<int:alert_id>', methods=['POST'])
+def delete_alert(alert_id):
+    alert = Fire_Alerts.query.get_or_404(alert_id)
+    try:
+        db.session.delete(alert)
+        db.session.commit()
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html', title='About')
+
+# 这一部分有一些参数建议不要更改
+
+# 视频帧的界面
+@app.route('/video')
+def video():
+    return render_template('video.html', title='Video')
+
+# video_feed，通过调用函数返回每一帧
+@app.route('/video_feed',endpoint='video_feed')
 def video_feed():
     return Response(generate(), mimetype="multipart/x-mixed-replace; boundary=frame")
 @app.route('/report')
@@ -400,8 +524,14 @@ def report():
     check = math.isnan(avg)
     time = datetime.now().strftime("%I:%M %p")
     current_date = date.today().strftime("%B %d, %Y")
-
-    return render_template('report.html', title='Results', avg=avg, yawn=yawn, blink=blink, check=check, time=time, date=current_date)
+    app = create_app()  # Create the Flask app object
+    with app.app_context():
+        # Retrieve all alerts from the database
+        alerts = Fire_Alerts.query.all()
+        locations = Fire_Location.query.all()
+        combined_data = list(zip_longest(alerts, locations))
+    # Render the alert.html template and pass the alerts data
+    return render_template('report.html', title='Results', avg=avg, yawn=yawn, blink=blink, check=check, time=time, date=current_date,combined_data=combined_data)
 
 @app.route('/graph/<filename>/<xlabel>/<ylabel>/<title>')
 def graph(filename, xlabel, ylabel, title):
@@ -435,16 +565,23 @@ def graph(filename, xlabel, ylabel, title):
         # Return the image data
     return Response(output.getvalue(), mimetype='image/png')
 
-def resetFile():
-    file_list = ["blink.txt", "ear.txt", "head.txt", "mar.txt", "perclos.txt", "yawn.txt"]
 
-    for file_name in file_list:
-        file_prefix='./files/'
-        file_road=file_prefix+file_name
-        with open(file_road, "w") as file:
-            file.truncate(0)
+
+@app.route('/graph_feed/<filename>/<xlabel>/<ylabel>/<title>', endpoint='graph_feed')
+def graph_feed(filename, xlabel, ylabel, title):
+    return Response(generateGraph(filename, xlabel, ylabel, title), mimetype="multipart/x-mixed-replace; boundary=frame")
+
+# 定义一个定时器任务，用于定期将更新请求放入队列
 
 if __name__ == '__main__':
-    resetFile()
+    enqueue_update()  # 启动定时器任务
+    # 设置路由的先后顺序
+
+    video_feed_rule = app.url_map._rules_by_endpoint['video_feed'][0]
+    graph_feed_rule = app.url_map._rules_by_endpoint['graph_feed'][0]
+    app.url_map._rules.remove(video_feed_rule)
+    app.url_map._rules.remove(graph_feed_rule)
+    app.url_map._rules.append(video_feed_rule)
+    app.url_map._rules.append(graph_feed_rule)
     app.run(host='127.0.0.1', port=5000, debug=True, threaded=True, use_reloader=False)
 

@@ -1,60 +1,529 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!--原来的代码开始-->
+    {% raw %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% endraw %}
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&family=Fjalla+One&family=Source+Serif+Pro:wght@300&display=swap" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../static/css/report.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="../static/img/DecCar/icon.png" type="image/jpg" sizes="128x128">
+    <title>Fire Eye - Fire Alerts</title>
 
-    <div class="result">
-    {% if check %}
+<!--    <meta charset="utf-8">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- base:css -->
+<!--    <link rel="stylesheet" href="../static/vendors/typicons/typicons.css">-->
+<!--    <link rel="stylesheet" href="../static/vendors/css/vendor.bundle.base.css">-->
+    <link rel="stylesheet" href="../static/css/vertical-layout-light/style.css">
+    </head>
+
+<section>
+    <div class="Section-1">
+        <div class="Nav-Bar">
+        <ul class="Navigation-Bar">
+            <a class="title" href="{{url_for('index')}}"><img class="logo" src="{{url_for('static', filename='/img/DecCar/icon.png')}}" width="90px" height="100px"></a>
+            <a class="topnav-left" href="{{url_for('index')}}">清醒派</a>
+        <div class="topnav-right">
+            <li class="Nav-Link"><a  href="{{url_for('index')}}"><i style="padding-right:10px;" class="fa fa-home"></i>首页</a></li>
+            <li class="Nav-Link"><a  href="{{url_for('about')}}"><i style="padding-right:10px;" class="fa fa-tree"></i>关于</a></li>
+            <li class="Nav-Link"><a  href="{{url_for('video',)}}"><i style="padding-right:10px;" class="fa fa-list-ul"></i>检测</a></li>
+            <li class="Nav-Link"><a  href="{{url_for('report', )}}"><i style="padding-right:10px;" class="fa fa-leaf"></i>报告</a></li>
+            <li class="Nav-Link"><a  href="{{url_for('index',)}}"><i style="padding-right:10px;" class="fa fa-phone"></i>联系方式</a></li>
+        </div>
+        </ul>
+        </div>
+        <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper">
+
+      <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close typcn typcn-times"></i>
+        <ul class="nav nav-tabs" id="setting-panel" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="setting-content">
+          <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+            <div class="add-items d-flex px-3 mb-0">
+              <form class="form w-100">
+                <div class="form-group d-flex">
+                  <input type="text" class="form-control todo-list-input" placeholder="Add To-do">
+                  <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Add</button>
+                </div>
+              </form>
+            </div>
+            <div class="list-wrapper px-3">
+              <ul class="d-flex flex-column-reverse todo-list">
+                <li>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox">
+                      Team review meeting at 3.00 PM
+                    </label>
+                  </div>
+                  <i class="remove typcn typcn-delete-outline"></i>
+                </li>
+                <li>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox">
+                      Prepare for presentation
+                    </label>
+                  </div>
+                  <i class="remove typcn typcn-delete-outline"></i>
+                </li>
+                <li>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox">
+                      Resolve all the low priority tickets due today
+                    </label>
+                  </div>
+                  <i class="remove typcn typcn-delete-outline"></i>
+                </li>
+                <li class="completed">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox" checked>
+                      Schedule meeting for next week
+                    </label>
+                  </div>
+                  <i class="remove typcn typcn-delete-outline"></i>
+                </li>
+                <li class="completed">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox" checked>
+                      Project review
+                    </label>
+                  </div>
+                  <i class="remove typcn typcn-delete-outline"></i>
+                </li>
+              </ul>
+            </div>
+            <div class="events py-4 border-bottom px-3">
+              <div class="wrapper d-flex mb-2">
+                <i class="typcn typcn-media-record-outline text-primary mr-2"></i>
+                <span>Feb 11 2018</span>
+              </div>
+              <p class="mb-0 font-weight-thin text-gray">Creating component page</p>
+              <p class="text-gray mb-0">build a js based app</p>
+            </div>
+            <div class="events pt-4 px-3">
+              <div class="wrapper d-flex mb-2">
+                <i class="typcn typcn-media-record-outline text-primary mr-2"></i>
+                <span>Feb 7 2018</span>
+              </div>
+              <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
+              <p class="text-gray mb-0 ">Call Sarah Graves</p>
+            </div>
+          </div>
+          <!-- To do section tab ends -->
+          <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
+            <div class="d-flex align-items-center justify-content-between border-bottom">
+              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
+              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
+            </div>
+            <ul class="chat-list">
+              <li class="list active">
+                <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+                <div class="info">
+                  <p>Thomas Douglas</p>
+                  <p>Available</p>
+                </div>
+                <small class="text-muted my-auto">19 min</small>
+              </li>
+              <li class="list">
+                <div class="profile"><img src="images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
+                <div class="info">
+                  <div class="wrapper d-flex">
+                    <p>Catherine</p>
+                  </div>
+                  <p>Away</p>
+                </div>
+                <div class="badge badge-success badge-pill my-auto mx-2">4</div>
+                <small class="text-muted my-auto">23 min</small>
+              </li>
+              <li class="list">
+                <div class="profile"><img src="images/faces/face3.jpg" alt="image"><span class="online"></span></div>
+                <div class="info">
+                  <p>Daniel Russell</p>
+                  <p>Available</p>
+                </div>
+                <small class="text-muted my-auto">14 min</small>
+              </li>
+              <li class="list">
+                <div class="profile"><img src="images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
+                <div class="info">
+                  <p>James Richardson</p>
+                  <p>Away</p>
+                </div>
+                <small class="text-muted my-auto">2 min</small>
+              </li>
+              <li class="list">
+                <div class="profile"><img src="images/faces/face5.jpg" alt="image"><span class="online"></span></div>
+                <div class="info">
+                  <p>Madeline Kennedy</p>
+                  <p>Available</p>
+                </div>
+                <small class="text-muted my-auto">5 min</small>
+              </li>
+              <li class="list">
+                <div class="profile"><img src="images/faces/face6.jpg" alt="image"><span class="online"></span></div>
+                <div class="info">
+                  <p>Sarah Graves</p>
+                  <p>Available</p>
+                </div>
+                <small class="text-muted my-auto">47 min</small>
+              </li>
+            </ul>
+          </div>
+          <!-- chat tab ends -->
+        </div>
+      </div>
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+                      <a class="nav-link" href="index.html">
+                        <i class="typcn typcn-device-desktop menu-icon"></i>
+                        <span class="menu-title">今日数据</span>
+                        <div class="badge badge-danger">new</div>
+                      </a>
+                    </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">驾驶报告</span>
+              <div class="badge badge-danger">new</div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">历史数据</span>
+              <div class="badge badge-danger">new</div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+<div class="main-panel">
+    <div class="content-wrapper">
+          {% if check %}
         <div class="card" id="card">
             <div class="card-body">
-                <h2 class="card-title">You haven't turned on Fatigue detector</h2>
-                <a href="{{ url_for('video') }}" target="_blank" class="btn btn-primary">Turn it on</a>
+                <h2 class="card-title">您还未打开疲劳检测器</h2>
+                <a href="{{ url_for('video') }}" target="_blank" class="btn btn-primary">打开</a>
                 <br>
             </div>
         </div>
-    {% else %}
-        <div class="graph">
-    <img src="{{ url_for('graph', filename='ear', xlabel='Duration of session', ylabel='EyeAspectRatio', title='EyeAspectRatioDuringSession') }}" />
-</div>
-                        <div class="graph">
-    <img src="{{ url_for('graph', filename='perclos', xlabel='DurationOfSession', ylabel='PercentageOfEyeClosure', title='PercentageOfEyeClosureDuringSessions') }}" />
-</div>
-                <div class="graph">
-    <img src="{{ url_for('graph', filename='head', xlabel='DurationOfSession', ylabel='Headtilt', title='HeadTiltDuringTheSession') }}" />
-</div>
-        <img src="{{ url_for('graph', filename='mar', xlabel='DurationOfSession', ylabel='MouthAspectRatio', title='MouthAspectRatioDuringTheSession') }}" />
-</div>
+          {% else %}
+        <div class="row">
+        <div class="col-xl-8 grid-margin stretch-card flex-column">
+            <h5 class="mb-2 text-titlecase mb-4">今日数据</h5>
+          <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+             <div class="card" >
+                 <img src="{{ url_for('graph', filename='ear', xlabel='Duration of session', ylabel='EyeAspectRatio', title='EyeAspectRatioDuringSession') }}" alt="">
+             </div>
+                 <div class="card" >
+                 <img src="{{ url_for('graph', filename='perclos', xlabel='DurationOfSession', ylabel='PercentageOfEyeClosure', title='PercentageOfEyeClosureDuringSessions') }}" />
+             </div>
+          </div>
+          </div>
+            <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+             <div class="card" >
+                <img src="{{ url_for('graph', filename='head', xlabel='DurationOfSession', ylabel='Headtilt', title='HeadTiltDuringTheSession') }}" />
+             </div>
+                 <div class="card" >
+                    <img src="{{ url_for('graph', filename='mar', xlabel='DurationOfSession', ylabel='MouthAspectRatio', title='MouthAspectRatioDuringTheSession') }}" />
+             </div>
+          </div>
+            </div>
+        </div>
+        <div class="col-xl-4 grid-margin stretch-card flex-column">
+          <h5 class="mb-2 text-titlecase mb-4">检测报告</h5>
+          <div class="row ">
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                    {% if avg <= 250 %}
+                        <img class="mx-auto card-img-top" src="{{ url_for('static', filename='media/sleep.svg') }}" alt="Card image cap">
+                    {% elif avg > 250 and avg < 300 %}
+                        <img class="mx-auto card-img-top" src="{{ url_for('static', filename='media/tired.svg') }}" alt="Card image cap">
+                    {% else %}
+                        <img class="mx-auto card-img-top" src="{{ url_for('static', filename='media/refresh.svg') }}" alt="Card image cap">
+                    {% endif %}
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start flex-wrap">
+                      {% if avg < 250 %}
+                        <h2 class="card-title">您需要休息 </h2>
+                      {% elif avg < 270 %}
+                        <h2 class="card-title">您有些许疲惫</h2>
+                      {% else %}
+                        <h2 class="card-title">您现在状态良好，保持清醒 </h2>
+                      {% endif %}
+                    <h5 class="card-text">您的平均眼睛长宽比是"{{'%0.3f'|format((avg)|float)}}</h5>
+                    <h5 class="card-text">总打哈欠次数为 {{yawn}}</h5>
+                    <h5 class="card-text">眨眼次数为 {{blink}}</h5> <br>
+                    <div class="timestamp">
+                <h6>{{date}}</h6>
+                <h6>{{time}}</h6>
+            </div>
+                </div>
+              </div>
 
-        <div class="report_container">
-            <div class="card" id="card">
-            {% if avg <= 250 %}
-                <img class="mx-auto card-img-top" src="{{ url_for('static', filename='media/sleep.svg') }}" alt="Card image cap">
-            {% elif avg > 250 and avg < 300 %}
-                <img class="mx-auto card-img-top" src="{{ url_for('static', filename='media/tired.svg') }}" alt="Card image cap">
-            {% else %}
-                <img class="mx-auto card-img-top" src="{{ url_for('static', filename='media/refresh.svg') }}" alt="Card image cap">
-            {% endif %}
-            <div class="card-body">
-                {% if avg < 250 %}
-                    <h2 class="card-title">You need to sleep </h2>
-                {% elif avg < 270 %}
-                    <h2 class="card-title">You are a little tired </h2>
-                {% else %}
-                    <h2 class="card-title">You are refreshed </h2>
-                {% endif %}
-                <h5 class="card-text">Your average Eye Aspect Ratio is {{'%0.3f'|format((avg)|float)}}</h5>
-                <h5 class="card-text">Total yawns in this session is {{yawn}}</h5>
-                <h5 class="card-text">Total eye blinks in this session is {{blink}}</h5> <br>
-                <div class="timestamp">
-                    <h6>{{date}}</h6>
-                    <h6>{{time}}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+          {% endif %}
+<!--    <div class="cont"></div>-->
+<!--    <div class="contp">-->
+<!--        <div class="param-title">-->
+<!--            <img src="https://static.vecteezy.com/system/resources/previews/011/318/893/original/green-leaf-branch-watercolor-free-png.png" height="100px" width="85px">-->
+<!--            <h1>REAL<pre style="display: inline-block;">-</pre>TIME FIRE ALERTS PER DAY </h1>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="chart-container">-->
+<!--        <canvas id="chart"></canvas>-->
+<!--    </div>-->
+</div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="table-responsive pt-3">
+                         <table class="table table-striped project-orders-table">
+                            <tr>
+                              <th style="padding: 5px; padding-left: 10px; box-shadow: inset 8px 11px 8px -10px rgba(61,5,5,1), inset 8px -11px 8px -10px rgba(61,5,5,1); ">序号#</th>
+                              <th>驾驶图像</th>
+                              <th>时间</th>
+                              <th>日期</th>
+                              <th>纬度</th>
+                              <th >经度</th>
+                              <th style=" box-shadow: inset -8px 11px 8px -10px rgba(61,5,5,1), inset -8px -11px 8px -10px rgba(61,5,5,1); padding: 0px;"></th>
+                            </tr>
+                            {% for data in combined_data %}
+                            <tr>
+                              <td>{{ data[0].id }}</td>
+                              <td><img src="data:image/png;base64,{{ data[0].image_path }}" alt="Fire Image" width="80"></td>
+                              <td>{{ data[0].time }}</td>
+                              <td>{{ data[0].date }}</td>
+                              <td>{{ data[1].latitude }}</td>
+                              <td>{{ data[1].longitude }}</td>
+                              <td style="padding-left: 10px; padding-right: 10px;"><button onclick="deleteAlert('{{data[0].id}}')">Delete</button></td>
+                            </tr>
+                            {% endfor %}
+                            </table>
+                    </div>
                 </div>
             </div>
         </div>
-            <div class="report-button">
-                <a href="{{ url_for('index') }}" class="btn btn-primary">Back To Home</a>
-                <button class="btn btn-primary" id="download">Save Report</button>
-            </div>
-    {% endif %}
+    </div>
+</div>
     </div>
 
+</div>
+    </div>
+
+</section>
+<!--后面的head代码结束-->
+
+<!--分界线-->
+
+{% raw %}
+<script>
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(e) {
+      if (!e.target.matches('.dropbtn')) {
+      var myDropdown = document.getElementById("myDropdown");
+        if (myDropdown.classList.contains('show')) {
+          myDropdown.classList.remove('show');
+        }
+      }
+    }
+</script>
+
+<script>
+      // Create a Chart.js instance
+const ctx = document.getElementById('chart').getContext('2d');
+let chart;
+
+// Function to update the graph with new data
+function updateGraph(data) {
+  const dates = data.map(d => d.date);
+  const counts = data.map(d => d.count);
+
+  if (chart) {
+    // Update the existing chart
+    chart.data.labels = dates;
+    chart.data.datasets[0].data = counts;
+    chart.update();
+  } else {
+    // Create a new chart
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: dates,
+        datasets: [{
+          label: 'NUMBER OF FIRE ALERTS',
+          data: counts,
+          borderWidth: 1.5,
+          backgroundColor: 'rgb(112, 24, 4)',
+          borderColor: 'rgb(112, 24, 4)', // Set the line color to red
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'DATE',
+              color: 'black',
+              font: {
+                weight: 'bold',
+                size: 20, // Set the font size for the x-axis title
+                family: 'EB Garamond', // Set the font family for the x-axis title
+              },
+            },
+            ticks: {
+              color: 'black',
+              font: {
+                size: 14, // Set the font size for the x-axis labels
+                family: 'Times New Roman', // Set the font family for the x-axis labels
+              },
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'FIRE ALERT COUNT',
+              color: 'black',
+              font: {
+                weight: 'bold',
+                size: 20, // Set the font size for the y-axis title
+                family: 'EB Garamond', // Set the font family for the y-axis title
+              },
+            },
+            ticks: {
+              font: {
+                size: 14, // Set the font size for the y-axis labels
+                family: 'Times New Roman', // Set the font family for the y-axis labels
+              },
+              color: 'black',
+            },
+          },
+        },
+        plugins: {
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+          },
+        },
+        interaction: {
+          intersect: false,
+        },
+        elements: {
+          line: {
+            tension: 0.3, // Adjust the line tension for a smoother curve
+          }
+        },
+        animation: {
+          duration: 0, // Disable animation for a static chart
+        },
+        plugins: {
+          legend: {
+            labels:{
+                color:'black',
+                font:{
+                    weight: 'bold',
+                    size: 20,
+                    family: 'EB Garamond',
+                }
+            },
+            display: true,
+          }
+        },
+        responsiveAnimationDuration: 0, // Disable animation for responsiveness
+        layout: {
+          padding: {
+            top: 10,
+            bottom: 10,
+          }
+        },
+      }
+    });
+  }
+}
+        // Function to fetch data from the server and update the graph
+        function fetchData() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                    updateGraph(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Call the fetchData function initially and then every 5 seconds
+        fetchData();
+        setInterval(fetchData, 5000);
+    </script>
+
+<script>
+  function deleteAlert(alertId) {
+      if (confirm('Are you sure you want to delete this alert?')) {
+          fetch(`/delete_alert/${alertId}`, { method: 'POST' })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.success) {
+                      // Redirect to a new page after successful deletion
+                      window.location.href = '/FireAlerts';
+                  } else {
+                      alert('Failed to delete the alert. Please try again.');
+                  }
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+              });
+      }
+  }
+</script>
+
+<!--后面的-->
+<!-- base:js -->
+<script src="../static/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page-->
+<script src="../static/vendors/chart.js/Chart.min.js"></script>
+<!-- End plugin js for this page-->
+<!-- inject:js -->
+<script src="../static/js/off-canvas.js"></script>
+<script src="../static/js/hoverable-collapse.js"></script>
+<script src="../static/js/template.js"></script>
+<script src="../static/js/settings.js"></script>
+<script src="../static/js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="../static/js/dashboard.js"></script>
+<!-- End custom js for this page-->
+{% endraw %}
 {% endblock content %}

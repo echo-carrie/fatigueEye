@@ -4,6 +4,21 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="fatigueDetector" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="plotly-latest" level="application" />
+    <orderEntry type="library" name="chart.js" level="application" />
+    <orderEntry type="library" name="FileSaver.js" level="application" />
+    <orderEntry type="library" name="jquery.counterup" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
+    <orderEntry type="library" name="waypoints" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="dom-to-image" level="application" />
+    <orderEntry type="library" name="addToolbar" level="application" />
+    <orderEntry type="library" name="demoutils" level="application" />
+    <orderEntry type="library" name="loader" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
+    <orderEntry type="library" name="demo-center" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

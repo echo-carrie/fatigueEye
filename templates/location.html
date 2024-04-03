@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>浏览器精确定位</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <style>
+        html,body,#container{
+            height:100%;
+        }
+        .info{
+            width:26rem;
+        }
+      #panel {
+        position: fixed;
+        background-color: white;
+        max-height: 90%;
+        overflow-y: auto;
+        top: 10px;
+        right: 10px;
+        width: 280px;
+      }
+      #panel .amap-call {
+        background-color: #009cf9;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+      #panel .amap-lib-driving {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        overflow: hidden;
+      }
+    </style>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+<body>
+<div id='container'></div>
+
+<div class="info">
+    <h4 id='status'></h4><hr>
+    <p id='result'></p><hr>
+    <button id="searchButton">搜索周边位置</button>
+    <div id="place"></div>
+    <p>起点</p>
+    <p id="startPoint"></p>
+    <p>终点</p>
+    <p id="endPoint"></p>
+    <button onclick="performPlanDriving()">规划驾车路线</button>
+    <div id="panel"></div>
+</div>
+
+<script type="text/javascript">
+    window._AMapSecurityConfig = {
+        securityJsCode:'e56781f3ea8f14e94b5dad4defac18e2',
+    }
+    window.onload = function() {
+    performPlaceSearch()
+    }
+
+</script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=5b6a4518ce8fbf1b1636b112b983ee0a"></script>
+<script type="text/javascript" >
+    // 地图初始化应该在地图容器div已经添加到DOM树之后
+    var map = new AMap.Map('container', {
+        zoom:12
+    })
+</script>
+<script type="text/javascript">
+    var selectedObject;
+
+    //解析定位结果
+    // 获取按钮元素
+    var searchButton = document.getElementById('searchButton');
+// 添加事件监听器
+    searchButton.addEventListener('click', performPlaceSearch);
+    var map = new AMap.Map('container', {
+        resizeEnable: true
+    });
+    var geolocation;
+    AMap.plugin('AMap.Geolocation', function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：5s
+            buttonPosition:'RB',    //定位按钮的停靠位置
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+            needAddress: true,
+
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition(function(status,result){
+            if(status=='complete'){
+                onComplete(result)
+                searchNearbyPlaces(result.position, "停车场");
+                console.log(result);
+                console.log(position_ie);
+            }else{
+                onError(result)
+            }
+        });
+    });
+function performPlaceSearch() {
+  // 获取当前位置
+  geolocation.getCurrentPosition(function(status, result) {
+    if (status == 'complete') {
+      // 搜索周边地点
+      searchNearbyPlaces(result.position, "停车场");
+    } else {
+      onError(result);
+    }
+  });
+}
+
+
+function searchNearbyPlaces(position, keyword) {
+  AMap.plugin(["AMap.PlaceSearch"], function() {
+    // 构造地点查询类
+    var placeSearch = new AMap.PlaceSearch({
+      type: '餐饮服务', // 兴趣点类别
+      pageSize: 5, // 单页显示结果条数
+      pageIndex: 1, // 页码
+      city: "全国", // 兴趣点城市
+      citylimit: true, // 是否强制限制在设置的城市内搜索
+      map: map, // 展现结果的地图实例
+      panel: "place", // 结果列表将在此容器中进行展示。
+      autoFitView: true // 是否自动调整地图视野使绘制的 Marker 点都处于视口的可见范围
+    });
+
+    placeSearch.searchNearBy(keyword, position, 200, function(status, result) {
+      console.log(result);
+        if (result && result.poiList && result.poiList.pois && result.poiList.pois.length > 0) {
+        // 假设用户选择第一个对象
+        selectedObject = result.poiList.pois[0];
+
+        console.log('选中对象的属性:');
+        console.log('ID: ' + selectedObject.id);
+        console.log('名称: ' + selectedObject.name);
+        console.log('类型: ' + selectedObject.type);
+        console.log('经纬度: ' + selectedObject.location);
+        console.log('地址: ' + selectedObject.address);
+        console.log('离中心点距离: ' + selectedObject.distance);
+        document.getElementById('endPoint').innerHTML=result.formatterdAddress;
+
+  }
+    });
+  });
+}
+function planDrivingRoute(startLngLat) {
+    //引入和创建驾车规划插件
+    endLngLat=selectedObject.location
+    AMap.plugin(["AMap.Driving"], function () {
+      const driving = new AMap.Driving({
+        map: map,
+        panel: "panel",
+      showTraffic:true,
+      });
+      //获取起终点规划线路
+      driving.search(startLngLat, endLngLat, function (status, result) {
+        if (status === "complete") {
+          //status：complete 表示查询成功，no_data 为查询无结果，error 代表查询错误
+          //查询成功时，result 即为对应的驾车导航信息
+          console.log(result);
+        } else {
+          console.log("获取驾车数据失败：" + result);
+        }
+      });
+    });
+}
+function performPlanDriving() {
+  geolocation.getCurrentPosition(function(status, result) {
+    if (status == 'complete') {
+      // Search for nearby places
+      planDrivingRoute(result.position);
+    } else {
+      onError(result);
+    }
+  });
+}
+
+    function onComplete(data) {
+
+        document.getElementById('status').innerHTML='定位成功'
+        var str = [];
+        str.push('定位结果：' + data.position);
+        str.push('定位类别：' + data.location_type);
+        /*str.push('详细位置：' + data.formattedAddress);*/
+        var position_de = data.formattedAddress;
+        position_ie = data.formattedAddress;
+        str.push('位置：' + position_de);
+        str.push('详细信息：' + data.message);
+        if(data.accuracy){
+            str.push('精度：' + data.accuracy + ' 米');
+        }//如为IP精确定位结果则没有精度信息
+        str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));
+        document.getElementById('result').innerHTML = str.join('<br>');
+        document.getElementById('startPoint').innerHTML=position_de;
+    }
+    //解析定位错误信息
+    function onError(data) {
+        document.getElementById('status').innerHTML='定位失败'
+        document.getElementById('result').innerHTML = '失败原因排查信息:'+data.message;
+    }
+
+</script>
+</body>
+</html>
