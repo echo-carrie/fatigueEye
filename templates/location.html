@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>浏览器精确定位</title>
     <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
@@ -37,9 +37,10 @@
     <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
     <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script src="../static/js/audio.js"></script>
+
 <body>
 <div id='container'></div>
-
 <div class="info">
     <h4 id='status'></h4><hr>
     <p id='result'></p><hr>
@@ -49,18 +50,27 @@
     <p id="startPoint"></p>
     <p>终点</p>
     <p id="endPoint"></p>
-    <button onclick="performPlanDriving()">规划驾车路线</button>
     <div id="panel"></div>
+    <button onclick="performPlanDriving()">规划驾车路线</button>
+    <button onclick="exitNavigation()">退出导航</a></button>
 </div>
 
 <script type="text/javascript">
     window._AMapSecurityConfig = {
         securityJsCode:'e56781f3ea8f14e94b5dad4defac18e2',
     }
-    window.onload = function() {
-    performPlaceSearch()
-    }
+    // window.onload = function() {
+    // performPlaceSearch()
+    // }
 
+</script>
+<script>
+    function exitNavigation() {
+  // 执行退出导航的操作
+  // 进行页面跳转
+        startAudio("小派持续守护您的安全！")
+  window.location.href = "{{url_for('index')}}"; // 将 URL 替换为你希望跳转的目标地址
+}
 </script>
 <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=5b6a4518ce8fbf1b1636b112b983ee0a"></script>
 <script type="text/javascript" >
@@ -95,9 +105,9 @@
         geolocation.getCurrentPosition(function(status,result){
             if(status=='complete'){
                 onComplete(result)
-                searchNearbyPlaces(result.position, "停车场");
                 console.log(result);
                 console.log(position_ie);
+
             }else{
                 onError(result)
             }
@@ -143,8 +153,9 @@ function searchNearbyPlaces(position, keyword) {
         console.log('经纬度: ' + selectedObject.location);
         console.log('地址: ' + selectedObject.address);
         console.log('离中心点距离: ' + selectedObject.distance);
-        document.getElementById('endPoint').innerHTML=result.formatterdAddress;
-
+        console.log(result.poiList.pois)
+        document.getElementById('endPoint').innerHTML=selectedObject.name;
+        startAudio("最近的休息点是"+selectedObject.name+"距离您当前位置"+selectedObject.distance+"米");
   }
     });
   });
@@ -161,6 +172,7 @@ function planDrivingRoute(startLngLat) {
       //获取起终点规划线路
       driving.search(startLngLat, endLngLat, function (status, result) {
         if (status === "complete") {
+            startAudio("现在为您规划行驶路线")
           //status：complete 表示查询成功，no_data 为查询无结果，error 代表查询错误
           //查询成功时，result 即为对应的驾车导航信息
           console.log(result);
@@ -198,6 +210,7 @@ function performPlanDriving() {
         str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));
         document.getElementById('result').innerHTML = str.join('<br>');
         document.getElementById('startPoint').innerHTML=position_de;
+        startAudio("您当前的位置是"+position_de);
     }
     //解析定位错误信息
     function onError(data) {

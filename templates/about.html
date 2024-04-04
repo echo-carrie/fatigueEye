@@ -3,6 +3,8 @@
 {% block content %}
 
  <head>
+     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&family=Fjalla+One&family=Source+Serif+Pro:wght@300&display=swap" rel="stylesheet">
@@ -11,6 +13,7 @@
     <link rel="icon" href="{{url_for('static', filename='Fire_logo_title.jpg')}}" type="image/jpg" sizes="128x128">
     <title>Fire Eye - About</title>
 </head>
+
 <div >
     <div class="Nav-Bar">
         <ul class="Navigation-Bar">
@@ -56,7 +59,7 @@
         </div>
 
         <div class="Aboutimg reveal fade-right">
-            <img src="/static/About_Image.jpeg" height="320px" width="530px">
+            <img src="../static/img/aboutImg/model.png" height="320px" width="530px">
         </div>
     </div>
 </section>
@@ -178,7 +181,7 @@
         <div class="FooterCap">
             <div class="image1">
             <img src="static/img/DecCar/icon.png" width="190px" height="210px">
-            <h1>生命第一，请谨慎疲劳价值！</h1>
+            <h1>清醒派时刻守护您和所爱</h1>
             </div>
         </div>
 
@@ -244,6 +247,14 @@ function reveal() {
 }
 
 window.addEventListener("scroll", reveal);
+</script>
+
+  <script src="../static/js/audio.js">
+</script>
+<script>
+    window.onload = function() {
+  startAudio(" 清醒派,提供更加安全可靠的行车环境,时刻守护您和您所爱的一切");
+};
 </script>
 {% endraw %}
 

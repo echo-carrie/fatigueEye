@@ -496,6 +496,9 @@ def video():
 @app.route('/video_feed',endpoint='video_feed')
 def video_feed():
     return Response(generate(), mimetype="multipart/x-mixed-replace; boundary=frame")
+
+
+
 @app.route('/report')
 def report():
     ear_arr = []

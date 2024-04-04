@@ -503,20 +503,20 @@ box-shadow: none;
 
 
 
-.video {
-  margin-top: 7rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-}
+/*.video {*/
+/*  margin-top: 7rem;*/
+/*  !*display: flex;*!*/
+/*  flex-direction: column;*/
+/*  align-items: center;*/
+/*  justify-content: flex-end;*/
+/*}*/
 
-.video > img {
-  background-color: #00b7ff;
-  border-radius: 30px;
-  width: 600px;
-  height: 400px;
-}
+/*.video > img {*/
+/*  background-color: #00b7ff;*/
+/*  border-radius: 30px;*/
+/*  width: 600px;*/
+/*  height: 400px;*/
+/*}*/
 
 .centered {
   display: flex;
