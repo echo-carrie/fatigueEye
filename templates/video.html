@@ -11,7 +11,17 @@
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&family=Fjalla+One&family=Source+Serif+Pro:wght@300&display=swap" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../static/css/video.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Fire Eye - About</title>
+     <link rel="icon" href="../static/img/DecCar/icon.png" type="image/jpg" sizes="128x128">
+     <title>清醒派 - 实时检测</title>
+     <script type="text/javascript">
+    window._AMapSecurityConfig = {
+        securityJsCode:'e56781f3ea8f14e94b5dad4defac18e2',
+    }
+    // window.onload = function() {
+    // performPlaceSearch()
+    // }
+
+</script>
 </head>
 
 <!--导航栏-->
@@ -27,7 +37,7 @@
             <li class="Nav-Link"><a  href="{{url_for('about')}}"><i style="padding-right:10px;" class="fa fa-tree"></i>关于</a></li>
             <li class="Nav-Link"><a  href="{{url_for('video',)}}"><i style="padding-right:10px;" class="fa fa-list-ul"></i>检测</a></li>
             <li class="Nav-Link"><a  href="{{url_for('report', )}}"><i style="padding-right:10px;" class="fa fa-leaf"></i>报告</a></li>
-            <li class="Nav-Link"><a  href="{{url_for('index',)}}"><i style="padding-right:10px;" class="fa fa-phone"></i>联系方式</a></li>
+            <li class="Nav-Link"><a  href="{{url_for('index')}}#section8"><i style="padding-right:10px;" class="fa fa-phone"></i>介绍</a></li>
         </div>
         </ul>
         </div>
@@ -48,18 +58,27 @@
 
     <div class="video">
 <!--    这个是视频框，通过访问video-feed获取每一帧-->
-    <img src="{{ url_for('video_feed') }}" onload="imageloaded();"/>
-    <h1 id='feed' class="centered">正在加载实时视频</h1>
-    <div id='fancy-spinner' class="fancy-spinner precentered" >
-        <div id='ring' class="ring"></div>
-        <div id='dot'  class="dot"></div>
-    </div>
+        <div class = "Realvideo">
+            <img src="{{ url_for('video_feed') }}" onload="imageloaded();"/>
+        </div>
+        <h1 id='feed' class="centered">正在加载实时视频</h1>
+
+        <div id='fancy-spinner' class="fancy-spinner precentered" >
+            <div id='ring' class="ring"></div>
+            <div id='dot'  class="dot"></div>
+        </div>
     </div>
 
     <div class="text-box">
         <!-- 在视频框的右侧添加文本框 -->
-        <h2>This is a text box</h2>
-        <p>Here you can put your text content</p>
+        <p id="driveTime">您已经行驶了</p>
+
+        <button class="start-button" id="play-btn">播放音频</button>
+        <p id="status">加载定位</p>
+        <p id="result">当前位置</p>
+        <div class="bottom-div">
+          <button class="start-button">开始导航</button>
+        </div>
     </div>
 </div>
 
@@ -74,22 +93,85 @@
     </div>
 </section>
 
-        // 处理帧值更新事件
-        socket.on('frame_values', function(frameValues) {
-            const frameValuesList = document.getElementById('frame-values');
+{% raw %}
+<script src="../static/js/audio.js">
+</script>
+<script>
+    window.onload = function() {
+  startAudio("和小派开启安全之旅吧！");
+};
+</script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=5b6a4518ce8fbf1b1636b112b983ee0a"></script>
+<script type="text/javascript">
+    var geolocation;
+   AMap.plugin('AMap.Geolocation', function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：5s
+            buttonPosition:'RB',    //定位按钮的停靠位置
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+            needAddress: true,
 
-            // 清空列表
-            frameValuesList.innerHTML = '';
+        });
+        // map.addControl(geolocation);
+        geolocation.getCurrentPosition(function(status,result){
+            if(status=='complete'){
+                onComplete(result)
+                console.log(result);
+                console.log(position_ie);
 
-            // 遍历帧值对象的属性并将其添加到列表中
-            for (const key in frameValues) {
-                if (frameValues.hasOwnProperty(key)) {
-                    const value = frameValues[key];
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `${key}: ${value}`;
-                    frameValuesList.appendChild(listItem);
-                }
+            }else{
+                onError(result)
             }
         });
+    });
+
+// 解析定位结果
+    function onComplete(data) {
+
+        document.getElementById('status').innerHTML='定位成功'
+        var str = [];
+        str.push('定位结果：' + data.position);
+        str.push('定位类别：' + data.location_type);
+        /*str.push('详细位置：' + data.formattedAddress);*/
+        var position_de = data.formattedAddress;
+        position_ie = data.formattedAddress;
+        str.push('位置：' + position_de);
+        if(data.accuracy){
+            str.push('精度：' + data.accuracy + ' 米');
+        }//如为IP精确定位结果则没有精度信息
+        str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));
+        document.getElementById('result').innerHTML = str.join('<br>');
+        document.getElementById('startPoint').innerHTML=position_de;
+        startAudio("您当前的位置是"+position_de);
+    }
+    //解析定位错误信息
+    function onError(data) {
+        document.getElementById('status').innerHTML='定位失败'
+        document.getElementById('result').innerHTML = '失败原因排查信息:'+data.message;
+    }
+
+</script>
+     <script>
+        var playBtn = document.getElementById("play-btn");
+        var audio = new Audio();
+
+        var audioFiles = [
+            "../music/1.ogg",
+            "../music/2.ogg",
+            "../music/3.ogg",
+            "../music/4.ogg"
+        ];
+
+        playBtn.addEventListener("click", function() {
+            var randomIndex = Math.floor(Math.random() * audioFiles.length);
+            var randomFile = audioFiles[randomIndex];
+
+            audio.src = randomFile;
+            audio.play();
+        });
     </script>
+{% endraw %}
 {% endblock content %}
+

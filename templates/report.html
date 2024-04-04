@@ -3,18 +3,29 @@
 {% block content %}
 <!--原来的代码开始-->
     {% raw %}
+
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../static/js/audio.js"></script>
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+<script>
+    window.onload = function() {
+  startAudio("主人，请查收您的报告！");
+  startReportAudio1();
+};
+</script>
     {% endraw %}
 <head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&family=Fjalla+One&family=Source+Serif+Pro:wght@300&display=swap" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../static/css/report.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="../static/img/DecCar/icon.png" type="image/jpg" sizes="128x128">
-    <title>Fire Eye - Fire Alerts</title>
+    <title>清醒派 - 检测报告</title>
 
 <!--    <meta charset="utf-8">-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,12 +46,12 @@
             <li class="Nav-Link"><a  href="{{url_for('about')}}"><i style="padding-right:10px;" class="fa fa-tree"></i>关于</a></li>
             <li class="Nav-Link"><a  href="{{url_for('video',)}}"><i style="padding-right:10px;" class="fa fa-list-ul"></i>检测</a></li>
             <li class="Nav-Link"><a  href="{{url_for('report', )}}"><i style="padding-right:10px;" class="fa fa-leaf"></i>报告</a></li>
-            <li class="Nav-Link"><a  href="{{url_for('index',)}}"><i style="padding-right:10px;" class="fa fa-phone"></i>联系方式</a></li>
+            <li class="Nav-Link"><a  href="{{url_for('index')}}#section8"><i style="padding-right:10px;" class="fa fa-phone"></i>介绍</a></li>
         </div>
         </ul>
         </div>
         <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper">
+    <div class="container-fluid page-body-wrapper" >
 
       <div id="right-sidebar" class="settings-panel">
         <i class="settings-close typcn typcn-times"></i>
@@ -191,27 +202,27 @@
           <!-- chat tab ends -->
         </div>
       </div>
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar" >
         <ul class="nav">
           <li class="nav-item">
                       <a class="nav-link" href="index.html">
                         <i class="typcn typcn-device-desktop menu-icon"></i>
                         <span class="menu-title">今日数据</span>
-                        <div class="badge badge-danger">new</div>
+                        <div class="badge badge-danger" style="background:  #122861">new</div>
                       </a>
                     </li>
           <li class="nav-item">
             <a class="nav-link" href="index.html">
               <i class="typcn typcn-device-desktop menu-icon"></i>
               <span class="menu-title">驾驶报告</span>
-              <div class="badge badge-danger">new</div>
+              <div class="badge badge-danger" style="background:  #122861">new</div>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="index.html">
               <i class="typcn typcn-device-desktop menu-icon"></i>
               <span class="menu-title">历史数据</span>
-              <div class="badge badge-danger">new</div>
+              <div class="badge badge-danger" style="background:  #122861">new</div>
             </a>
           </li>
         </ul>
@@ -221,7 +232,7 @@
           {% if check %}
         <div class="card" id="card">
             <div class="card-body">
-                <h2 class="card-title">您还未打开疲劳检测器</h2>
+                <h2 class="card-title">您还未打开疲劳检测器,和小派开始安全之旅吧！</h2>
                 <a href="{{ url_for('video') }}" target="_blank" class="btn btn-primary">打开</a>
                 <br>
             </div>
@@ -255,7 +266,7 @@
           <h5 class="mb-2 text-titlecase mb-4">检测报告</h5>
           <div class="row ">
             <div class="col-md-12 stretch-card">
-              <div class="card">
+              <div class="card" >
                     {% if avg <= 250 %}
                         <img class="mx-auto card-img-top" src="{{ url_for('static', filename='media/sleep.svg') }}" alt="Card image cap">
                     {% elif avg > 250 and avg < 300 %}
@@ -264,7 +275,7 @@
                         <img class="mx-auto card-img-top" src="{{ url_for('static', filename='media/refresh.svg') }}" alt="Card image cap">
                     {% endif %}
                 <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start flex-wrap">
+                  <div class="d-flex justify-content-between align-items-start flex-wrap" onclick="startReportAudio(this)">
                       {% if avg < 250 %}
                         <h2 class="card-title">您需要休息 </h2>
                       {% elif avg < 270 %}
@@ -272,9 +283,10 @@
                       {% else %}
                         <h2 class="card-title">您现在状态良好，保持清醒 </h2>
                       {% endif %}
-                    <h5 class="card-text">您的平均眼睛长宽比是"{{'%0.3f'|format((avg)|float)}}</h5>
-                    <h5 class="card-text">总打哈欠次数为 {{yawn}}</h5>
-                    <h5 class="card-text">眨眼次数为 {{blink}}</h5> <br>
+                      <h5 class="card-text">您的平均眼睛长宽比是<span style="color:#025555">{{ '%0.3f'|format((avg/1000)|float) }}</span></h5>
+<!--                      <h5 class="card-text">您的平均眼睛长宽比是<span style="color:#025555">"{{'%0.3f'|format((avg)|float)}}</span></h5>-->
+                      <h5 class="card-text">总打哈欠次数为<span style="color:#025555"> {{yawn}}</span></h5>
+                    <h5 class="card-text">眨眼次数为 <span style="color:#025555">{{blink}}</span></h5> <br>
                     <div class="timestamp">
                 <h6>{{date}}</h6>
                 <h6>{{time}}</h6>
@@ -304,13 +316,13 @@
                     <div class="table-responsive pt-3">
                          <table class="table table-striped project-orders-table">
                             <tr>
-                              <th style="padding: 5px; padding-left: 10px; box-shadow: inset 8px 11px 8px -10px rgba(61,5,5,1), inset 8px -11px 8px -10px rgba(61,5,5,1); ">序号#</th>
+                              <th style="padding: 5px; padding-left: 10px; box-shadow: inset 8px 11px 8px -10px  #122861, inset 8px -11px 8px -10px  #122861 ">序号#</th>
                               <th>驾驶图像</th>
                               <th>时间</th>
                               <th>日期</th>
                               <th>纬度</th>
                               <th >经度</th>
-                              <th style=" box-shadow: inset -8px 11px 8px -10px rgba(61,5,5,1), inset -8px -11px 8px -10px rgba(61,5,5,1); padding: 0px;"></th>
+                              <th style=" box-shadow: inset -8px 11px 8px -10px  #122861, inset -8px -11px 8px -10px #122861; padding: 0px;"></th>
                             </tr>
                             {% for data in combined_data %}
                             <tr>
@@ -341,6 +353,27 @@
 <!--分界线-->
 
 {% raw %}
+
+<script>
+    function startReportAudio(element){
+     var headings = element.querySelectorAll('h2, h5, h6');
+
+      headings.forEach(function(heading) {
+        startAudio(heading.textContent)
+      });
+    // startAudio(element.innerHTML);
+    }
+    function startReportAudio1(){
+     var cardBody = document.querySelector('.card-body');
+     var headings = cardBody.querySelectorAll('h2, h5, h6');
+
+      headings.forEach(function(heading) {
+        startAudio(heading.textContent)
+      });
+    // startAudio(element.innerHTML);
+    }
+</script>
+
 <script>
     /* When the user clicks on the button,
     toggle between hiding and showing the dropdown content */
@@ -384,8 +417,8 @@ function updateGraph(data) {
           label: 'NUMBER OF FIRE ALERTS',
           data: counts,
           borderWidth: 1.5,
-          backgroundColor: 'rgb(112, 24, 4)',
-          borderColor: 'rgb(112, 24, 4)', // Set the line color to red
+          backgroundColor: '#122861',
+          borderColor: '#122861', // Set the line color to red
         }]
       },
       options: {
@@ -524,6 +557,7 @@ function updateGraph(data) {
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script src="../static/js/dashboard.js"></script>
+
 <!-- End custom js for this page-->
 {% endraw %}
 {% endblock content %}

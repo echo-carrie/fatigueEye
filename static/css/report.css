@@ -1,18 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&family=Fjalla+One&family=Source+Serif+Pro:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap');
 html {
     scroll-behavior: smooth;
 }
 
 title{
-    font-family: 'Elsie',cursive;
+   font-family: "Noto Serif SC", sans-serif;
 }
 
 body{
     margin: 0px auto 0px auto;
-    max-width: 1150px;
-    min-width: 1140px;
+  max-width: 1150px;
+  min-width: 1140px;
+    font-family: "Noto Serif SC", sans-serif;
 }
-
 .Section-1{
     position: relative;
     width: 100%;
@@ -94,7 +95,7 @@ a.topnav-left {
 }
 
 .Content-text h1{
-    font-family: 'Elsie', cursive;
+    font-family: "Noto Serif SC", sans-serif;
     color: rgb(255, 166, 0);
     font-size: 85px;
     font-weight: lighter;
@@ -104,7 +105,7 @@ a.topnav-left {
 
 .Content-text a{
     text-decoration: none;
-    font-family: 'Source Serif Pro', serif;
+ font-family: "Noto Serif SC", sans-serif;
     font-weight: lighter;
     font-size: 18px;
     color:rgb(253, 253, 253);
@@ -112,7 +113,7 @@ a.topnav-left {
 }
 
 .Content-text p{
-    font-family: 'Source Serif Pro', serif;
+   font-family: "Noto Serif SC", sans-serif;
     font-weight: lighter;
     font-size: 18px;
     color:rgb(253, 253, 253);
@@ -146,11 +147,11 @@ a.topnav-left {
 
 .dash-title{
     margin-top: 4%;
-    background: linear-gradient(119deg, rgba(61,5,5,1) 47%, rgba(208,106,0,1) 100%);
+    background:  #122861;
 }
 
 .dash-title h1{
-    font-family: 'EB Garamond', serif;
+    font-family: "Noto Serif SC", sans-serif;
     color:  rgb(255, 251, 233);
     font-size: 35px;
     display: inline-block;
@@ -184,42 +185,42 @@ table{
 }
 th {
     box-shadow: 
-        inset 0px 11px 8px -10px rgba(61,5,5,1),
-        inset 0px -11px 8px -10px rgba(61,5,5,1); 
+        inset 0px 11px 8px -10px #122861,
+        inset 0px -11px 8px -10px #122861;
     padding: 15px 38px;
-    font-family: 'EB Garamond', serif;
-    color:   rgb(112, 24, 4);
+    font-family: "Noto Serif SC", sans-serif;
+    color:  #122861;
     font-size: 20px; 
 }
 
 td{
-    border-bottom: 1px solid rgba(61,5,5,1);
+    border-bottom: 1px solid #122861;
     padding: 20px 0px;
     text-align: center;
 }
 
 td button{
-    font-family: 'EB Garamond', serif;
+    font-family: "Noto Serif SC", sans-serif;
     font-size: 15px;
     font-weight: bolder;
-    background-color: rgb(112, 24, 4);
+    background-color: #122861;
     color: rgb(255, 251, 233);
     padding: 4px 8px;
     text-decoration: none;
     cursor: pointer;
     border-radius: 50px;
-    border: solid 3px rgb(112, 24, 4);
+    border: solid 3px #122861;
     box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
 }
 
 td button:hover{
-    border: solid 3px rgb(151, 190, 50);
+    border: solid 3px #009AD7;
     box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
-    background-color: rgb(151, 190, 50);
+    background-color: #009AD7;
 }
 .param-title h1{
-    font-family: 'EB Garamond', serif;
-    color:   rgb(112, 24, 4);
+    font-family: "Noto Serif SC", sans-serif;
+    color:   #122861;
     font-size: 35px;
     position: absolute;
     margin-left: 5.3%; 
@@ -239,7 +240,7 @@ td button:hover{
 
 .cont{
     margin-top: 50px;
-    background-color: rgba(61,5,5,1);
+    background-color: #122861;
     height: 70px;
     width: 912px;
 }

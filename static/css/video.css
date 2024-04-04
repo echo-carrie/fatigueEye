@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&family=Fjalla+One&family=Source+Serif+Pro:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap');
+
 html {
     scroll-behavior: smooth;
 }
@@ -23,30 +25,27 @@ body{
 /*Navigation Bar*/
 .Nav-Bar{
     background: #122861;
+  height: 65px;
 }
 
 .logo{
     position: absolute;
     margin-left: 5%;
+  margin-top:-15px;
 }
+
 
 .topnav-right{
     float:right;
-    margin-top: 2.5%;
     margin-right: 2%;
-}
-
-.topnav-right{
-    float:right;
-    margin-top: 2.5%;
-    margin-right: 2%;
+  height: 65px;
 }
 
 a.topnav-left {
     position: absolute;
-    left: 25%;
-    top: 3%;
-    font-family: 'Elsie', cursive;
+    left: 13.5%;
+    top: 2%;
+      font-family: "Noto Serif SC", sans-serif;
     font-size: 30px;
     text-decoration: none;
     color:#fff;
@@ -61,26 +60,28 @@ a.topnav-left {
 
 .Navigation-Bar li {
     float: left;
+  height: 100%;
 }
 
 .Navigation-Bar li a {
     display: block;
-    font-family: 'Source Serif Pro', serif;
+    font-family: "Noto Serif SC", sans-serif;
     text-align: center;
     color: #fff;
     padding: 9px 16px;
     font-weight: bold;
     font-size: 18px;
     text-decoration: none;
+    margin-top: 15px;
 }
 
 .Navigation-Bar li:hover{
-    background-color:  rgb(112, 24, 4);
+    background-color: #ADDAEF;
     border-radius: 5px;
 }
 
 .Navigation-Bar li:hover a{
-    color: rgb(255, 251, 233);
+    color: #4372E8;
 }
 
 .Content{
@@ -89,43 +90,97 @@ a.topnav-left {
     width: 100%;
 }
 
-/* video */
+
 .section-2
 {
     display: flex;
-    background-image: url('https://img2.imgtp.com/2024/04/02/AdOQ8nUA.jpg'); /* 使用绝对路径 */
+    justify-content: center; /* 水平居中其子元素 */
+    height: 700px;
+    background-image: linear-gradient(to right top, #0e2950, #005788, #008aad, #00beb5, #10efa3);
 
 }
+/* 视频框 */
 .video {
     position: relative;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
 
+    max-width: 1200px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
+.Realvideo {
+        text-align: center; /* 水平居中 */
+        margin-top: 100px;
+    }
 
 /* 文本按钮框容器样式 */
 .text-box {
     width: 30%; /* 文本框占视频框宽度的30% */
     padding: 20px;
+    margin: auto; /* 水平居中 */
+}
+.text-box p {
+    font-size: 16px; /* 设置字体大小 */
+    color: #333; /* 设置字体颜色 */
+    margin: 10px 0; /* 设置段落之间的间距 */
+    padding: 10px; /* 添加内边距 */
+    background-color: #abecd6; /* 设置背景颜色 */
+    border-radius: 5px; /* 设置圆角 */
 }
 
-    .image-container {
-        display: flex;
-        flex-direction: column; /* 将子元素纵向排列 */
-        align-items: flex-start; /* 左对齐 */
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 0px; /* 顶部间距 */
-        padding: 20px; /* 内边距 */
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
-    }
+
+button {
+  border: 0;
+  margin: 20px;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 15px 50px;
+  border-radius: 50px;
+  color: white;
+  outline: none;
+  position: relative;
+}
+
+button:before{
+  content: '';
+  display: block;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.4) 50%);
+  background-size: 210% 100%;
+  background-position: right bottom;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom:0;
+  right:0;
+  left: 0;
+  border-radius: 50px;
+  transition: all 1s;
+  -webkit-transition: all 1s;
+}
+.start-button {
+    background-image: linear-gradient(to top, #13547a 0%, #330867 100%);
+    box-shadow: 0 4px 15px 0 #e9defa;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 修改为居中对齐 */
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 0px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 30%; /* 设为百分比宽度 */
+    margin: 0 auto; /* 水平居中 */
+}
+
 
     .image-container img {
         margin: 10px; /* 图像间距 */
-        max-width: 100px; /* 图像最大宽度 */
-        max-height: 100px; /* 图像最大高度 */
+        max-width: 150px; /* 图像最大宽度 */
+        max-height: 150px; /* 图像最大高度 */
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* 图像阴影效果 */
     }
 
@@ -147,7 +202,6 @@ a.topnav-left {
     background-repeat: no-repeat; /* 不重复平铺背景图片 */
     height: 200px;
     width: 100%;
-    margin-top: 20px;
     text-align: center; /* 居中内容 */
 }
 

@@ -1,17 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&family=Fjalla+One&family=Source+Serif+Pro:wght@300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 html {
   scroll-behavior: smooth;
+   font-family: "Noto Serif SC", sans-serif;
 }
 
 title{
-  font-family: 'Elsie',cursive;
+   font-family: "Noto Serif SC", sans-serif;
 }
 
 body{
   margin: 0px auto 0px auto;
   max-width: 1150px;
   min-width: 1140px;
+   font-family: "Noto Serif SC", sans-serif;
 }
 
 b{
@@ -40,7 +43,7 @@ a.topnav-left {
     position: absolute;
     left: 12.5%;
     top: 3%;
-    font-family: 'Elsie', cursive;
+    font-family: "Noto Serif SC", sans-serif;
     font-size: 30px;
     text-decoration: none;
     color:#fff;
@@ -60,7 +63,7 @@ a.topnav-left {
 
 .Navigation-Bar li a {
     display: block;
-    font-family: 'Source Serif Pro', serif;
+     font-family: "Noto Serif SC", sans-serif;
     text-align: center;
     color: #fff;
     padding: 9px 16px;
@@ -152,14 +155,14 @@ a.topnav-left {
   margin-top: 10%;
   margin-bottom: 0%;
   margin-left: 3.5%;
-  font-family: 'Source Serif Pro', serif;
+  font-family: "Noto Serif SC", sans-serif;
   font-weight: lighter;
   font-size: 25px;
   color:rgb(253, 253, 253);
 }
 
 .Section-1 h2{
-  font-family: 'Elsie', cursive;
+   font-family: "Noto Serif SC", sans-serif;
   color: rgb(255, 166, 0);
   font-size: 80px;
   font-weight: lighter;
@@ -174,7 +177,7 @@ a.topnav-left {
 }
 
 .Section-1 h3{
-  font-family: 'EB Garamond', serif;
+  font-family: "Noto Serif SC", sans-serif;
   font-weight: lighter;
   font-size: 20px;
   color:rgb(253, 253, 253);
@@ -253,7 +256,7 @@ a.topnav-left {
 }
 
 .AboutDetails h1{
-  font-family: 'EB Garamond', serif;
+   font-family: "Noto Serif SC", sans-serif;
   color:  #fff;
   font-size: 35px;
   margin-left: 50%;
@@ -269,7 +272,7 @@ a.topnav-left {
 }
 
 .AboutDetails p{
-  font-family: 'EB Garamond', serif;
+   font-family: "Noto Serif SC", sans-serif;
   font-size: 18px;
   position:absolute;
   margin-left: 50%;
@@ -287,7 +290,7 @@ a.topnav-left {
 }
 
 .AboutTable td{
-  font-family: 'EB Garamond', serif;
+   font-family: "Noto Serif SC", sans-serif;
   font-size: 16px;
  color:  #18326F;
   font-weight: bold;
@@ -314,7 +317,7 @@ a.topnav-left {
   width: 9em;
   height: 2.5em;
   font-weight: bolder;
-  font-family: 'EB Garamond', serif;
+   font-family: "Noto Serif SC", sans-serif;
   letter-spacing: 0.1em;
   text-align: center;
   line-height: 2.5em;
@@ -368,7 +371,8 @@ a.topnav-left {
   display: inline-block;
   position: relative;
   /*background-image: url("https://img2.imgtp.com/2024/04/02/nHnqvq4C.png");*/
-  background: -webkit-linear-gradient(360deg, #2f5ba4,#040d18);/* Chrome 10-25, Safari 5.1-6 */                          background: linear-gradient(360deg, #2f5ba4,#040d18);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(360deg, #2f5ba4,#040d18);/* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(360deg, #2f5ba4,#040d18);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   height: 650px;
   width: 100%;
   padding: 0%;
@@ -376,7 +380,7 @@ a.topnav-left {
 }
 
 .ServicesTitle h1{
-  font-family: 'Source Serif Pro', serif;
+   font-family: "Noto Serif SC", sans-serif;
   font-weight: bolder;
   font-size: 18px;
   text-align: center;
@@ -387,7 +391,7 @@ a.topnav-left {
 }
 
 .ServicesTitle h2{
-  font-family: 'EB Garamond', serif;
+   font-family: "Noto Serif SC", sans-serif;
   color:#E5BEBB;
   font-size: 35px;
   text-align: center;
@@ -398,12 +402,12 @@ a.topnav-left {
 }
 
 .Section-3 img{
-
-  margin-left: 47%;
-  margin-top: 2.5%;
   position: absolute;
 }
-
+.carlogo{
+  margin-left: 47%;
+  margin-top: 2%;
+}
 .Services{
   height: 50.5%;
   width: 20%;
@@ -434,7 +438,7 @@ a.topnav-left {
 
 /*Service Headings Padding Margin Setting*/
 .ServiceDetails h1{
-  font-family: 'EB Garamond', serif;
+   font-family: "Noto Serif SC", sans-serif;
   font-size: 26px;
   text-align: center;
   color: rgb(255, 251, 233);
@@ -501,12 +505,13 @@ a.topnav-left {
   position: relative;
   height: 300px;
   width: 100%;
-  background: -webkit-linear-gradient(180deg, #2f5aa2,#88cbeb);/* Chrome 10-25, Safari 5.1-6 */                          background: linear-gradient(180deg, #2f5aa2,#88cbeb);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(180deg, #2f5aa2,#88cbeb);
+  background: linear-gradient(180deg, #2f5aa2,#88cbeb);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 margin-bottom: -10px; /* Adjust as needed to remove the gap */
 }
 
 .ChooseDetails h1{
-  font-family: 'EB Garamond', serif;
+   font-family: "Noto Serif SC", sans-serif;
   color:  rgb(255, 251, 233);
   font-size: 35px;
   text-align: center;
@@ -525,7 +530,7 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 
 .ChooseDetails p{
   position: absolute;
-  font-family: 'EB Garamond', serif;
+  font-family: "Noto Serif SC", sans-serif;
   font-size: 20px;
   text-align: left;
   margin-left: 12%;
@@ -559,7 +564,7 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 
 .Statistic-Title h1{
   background-color: rgb(112, 24, 4);
-  font-family: 'Source Serif Pro', serif;
+   font-family: "Noto Serif SC", sans-serif;
   font-weight: bolder;
   letter-spacing: 0.1em;
   color: rgb(255, 251, 233);
@@ -589,8 +594,8 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  font-size: 60px;
-  font-family: 'EB Garamond', serif;
+  font-size: 55px;
+   font-family: "Noto Serif SC", sans-serif;
   font-weight: bold;
   justify-content: center;
   height: 75px;
@@ -601,7 +606,7 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 .counter-count h1{
   color: white;
   font-weight: lighter;
-  font-family: 'EB Garamond', serif;
+  font-family: "Noto Serif SC", sans-serif;
   border-top: 1px solid white;
   padding-top: 3%;
   font-size: 1.7rem;
@@ -617,7 +622,7 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 
 .Statistic-Title2 h1{
   background-color: rgb(112, 24, 4);
-  font-family: 'Source Serif Pro', serif;
+   font-family: "Noto Serif SC", sans-serif;
   font-weight: bolder;
   letter-spacing: 0.1em;
   color: rgb(255, 251, 233);
@@ -636,7 +641,7 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 
 .Statistic-Para p{
   color: white;
-  font-family: 'EB Garamond', serif;
+   font-family: "Noto Serif SC", sans-serif;
   text-align: justify;
   padding: 10px 20px;
   padding-top: 20px;
@@ -665,7 +670,7 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
   display: flex;
   flex-direction: column;
   font-size: 50px;
-  font-family: 'EB Garamond', serif;
+   font-family: "Noto Serif SC", sans-serif;
   font-weight: bold;
   justify-content: center;
   height: 140px;
@@ -679,7 +684,7 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
   background-color: rgb(112, 24, 4);
   border-radius: 10px;
   font-weight: lighter;
-  font-family: 'EB Garamond', serif;
+   font-family: "Noto Serif SC", sans-serif;
   padding-top: 3%;
   padding-bottom: 3%;
   width: 140px;
@@ -701,17 +706,23 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 .News{
   height: 40%;
   width: 30%;
-  margin-top: 12%;
+  margin-top: 0%;
   margin-left: 4.5%;
   background-color: rgb(255, 251, 233);
   display: inline-block;
 
 }
+
 .News.News-2{
-  margin-left: 0%;
+margin-left: 350px;
+  position: absolute;
+  top: 34.4%;
 }
 .News.News-3{
-  margin-left: 0%;
+  margin-left: 0px;
+  position: absolute;
+  top: 34.4%;
+
 }
 
 .News img{
@@ -729,14 +740,14 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 }
 
 .NewsHeading p{
-  font-family: 'Source Serif Pro', serif;
-  font-size: 14px;
+  font-family: "Noto Serif SC", sans-serif;
+  font-size: 16px;
   color: white;
   margin-bottom: 1.5%;
 }
 
 .NewsHeading a{
-  font-family: 'Source Serif Pro', serif;
+  font-family: "Noto Serif SC", sans-serif;
   font-size: 20px;
   color: white;
   font-weight: bolder;
@@ -818,12 +829,12 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 .footer-h1{
   margin-top: 0;
   font-size: 30px;
-  font-family: 'EB Garamond', serif;
+ font-family: "Noto Serif SC", sans-serif;
   color: rgb(255, 251, 233);
 }
 
 .Column-1 p{
-  font-family: 'EB Garamond', serif;
+ font-family: "Noto Serif SC", sans-serif;
   color: rgb(255, 251, 233);
   font-size: 18px;
   text-align: justify;
@@ -832,7 +843,7 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 
 .Column-2 a{
   text-decoration: none;
-  font-family: 'EB Garamond', serif;
+ font-family: "Noto Serif SC", sans-serif;
   font-size: 18px;
   color: rgb(255, 251, 233);
   margin-top: 4%;
@@ -849,7 +860,7 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 
 .Column-3 p{
   color: rgb(255, 251, 233);
-  font-family: 'EB Garamond', serif;
+  font-family: "Noto Serif SC", sans-serif;
   font-size: 18px;
 }
 
@@ -859,7 +870,7 @@ margin-bottom: -10px; /* Adjust as needed to remove the gap */
 
 .Column-4 a{
   text-decoration: none;
-  font-family: 'EB Garamond', serif;
+ font-family: "Noto Serif SC", sans-serif;
   color: white;
   padding: 15px;
   padding-bottom: 8px;
@@ -1012,14 +1023,22 @@ section:nth-child(8){
 
 .mb-3 {
   margin-bottom: 1rem !important;
-  font-size: 64px;
-  font-family: '宋体';
+  font-size: 55px;
+   font-family: "Noto Serif SC", sans-serif;
+   font-weight:bold;
+   color: #122861; /* 设置文字颜色为黑色 */
+   text-shadow:
+    0 0 5px white, /* 白色光晕效果 */
+    0 0 10px white, /* 更小的白色光晕效果 */
+    0 0 15px white, /* 更小的白色光晕效果 */
+    0 0 20px white; /* 更小的白色光晕效果 */
 
 }
 
 .text-primary {
   --bs-text-opacity: 1;
-  color:#0F1C2D !important;
+  color: black!important;
+  font-size: 76px;!important;
 }
 
 .text-muted {
